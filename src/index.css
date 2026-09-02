@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-navy: #06244d;
+  --color-brand-blue: #0b7ec2;
+  --color-brand-sky: #72cdf4;
+  --color-brand-mist: #eef8ff;
+  --color-white: #ffffff;
+}
+
+:root {
+  --text: #17345d;
+  --text-h: #06244d;
+  --bg: #ffffff;
+  --border: #cdeeff;
+  --code-bg: #eef8ff;
+  --accent: #0b7ec2;
+  --accent-bg: rgba(114, 205, 244, 0.18);
+  --accent-border: rgba(11, 126, 194, 0.35);
+  --social-bg: rgba(238, 248, 255, 0.75);
+  --shadow:
+    rgba(6, 36, 77, 0.12) 0 10px 15px -3px, rgba(6, 36, 77, 0.06) 0 4px 6px -2px;
+
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.18px;
+  color-scheme: light;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+h1,
+h2 {
+  font-family: var(--heading);
+  font-weight: 500;
+}
+
+h1 {
+  margin: 0;
+}
+h2 {
+  margin: 0;
+}
+p {
+  margin: 0;
+}
+
+code,
+.counter {
+  font-family: var(--mono);
+  display: inline-flex;
+  border-radius: 4px;
+  color: var(--text-h);
+}
+
+code {
+  font-size: 15px;
+  line-height: 135%;
+  padding: 4px 8px;
+  background: var(--code-bg);
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-md bg-brand-blue px-6 py-3 text-sm font-semibold text-white shadow-sm shadow-brand-navy/10 transition hover:bg-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-sky focus:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-md border border-brand-blue/25 bg-white px-6 py-3 text-sm font-semibold text-brand-blue transition hover:border-brand-blue hover:bg-brand-mist focus:outline-none focus:ring-2 focus:ring-brand-sky focus:ring-offset-2;
+  }
+
+  .field-label {
+    @apply mb-2 block text-left text-sm font-medium text-brand-navy/70;
+  }
+
+  .field-input {
+    @apply h-11 w-full rounded-md border border-brand-navy/15 bg-white px-3 text-sm text-brand-navy outline-none transition placeholder:text-brand-navy/35 focus:border-brand-blue focus:ring-2 focus:ring-brand-sky/40;
+  }
+}
