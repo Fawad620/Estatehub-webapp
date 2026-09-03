@@ -1,24 +1,42 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { startSession } from "../utils/auth";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [role, setRole] = useState("buyer");
+  const location = useLocation();
+  const [role, setRole] = useState(location.state?.role || "buyer");
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (field) => (e) =>
     setForm((prev) => ({ ...prev, [field]: e.target.value }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.email || !form.password) {
       setError("Enter your email and password to continue.");
       return;
     }
+    setLoading(true);
     setError("");
-    // Hook this up to your auth API. For now, just route home.
-    navigate("/");
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || "Unable to log in.");
+      if (data.user.role !== role) throw new Error(`This account is registered as a ${data.user.role}.`);
+      const session = startSession(data.user);
+      navigate(`/${session.role}-dashboard`, { replace: true });
+    } catch (requestError) {
+      setError(requestError.message || "Unable to log in. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -79,13 +97,13 @@ export default function Login() {
                 <input type="checkbox" className="rounded border-brand-navy/30" />
                 Remember me
               </label>
-              <a href="#reset" className="font-medium text-brand-blue hover:underline">
+              <Link to="/forgot-password" state={{ role }} className="font-medium text-brand-blue hover:underline">
                 Forgot password?
-              </a>
+              </Link>
             </div>
 
             <button type="submit" className="btn-primary w-full">
-              Log in as {role}
+              {loading ? "Logging in..." : `Log in as ${role}`}
             </button>
           </form>
 

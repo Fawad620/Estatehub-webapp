@@ -3,15 +3,15 @@ import { Link, useNavigate } from "react-router-dom";
 import PropertyCard from "../components/PropertyCard";
 
 const properties = [
-  { id: 1, image: "https://images.olx.com.pk/thumbnails/632060167-400x300.jpeg", title: "DHA Phase 5 Villa", address: "DHA Phase 5, Islamabad", price: "Rs 4.2 lac", oldPrice: "Rs 4.8 lac", beds: 5, baths: 6, sqft: "4,500" },
-  { id: 2, image: "https://images.olx.com.pk/thumbnails/590998256-400x300.jpeg", title: "G-13 Modern House", address: "G-13, Islamabad", price: "Rs 2.9 lac", oldPrice: "Rs 3.4 lac", beds: 4, baths: 4, sqft: "2,250" },
-  { id: 3, image: "https://havenholidayhome.com/public/propertys/2026/Mar/1773221512-69b1368883bb7.webp", title: "Bahria Garden Home", address: "Bahria Town Phase 7, Rawalpindi", price: "Rs 2.4 lac", oldPrice: "Rs 2.8 lac", beds: 4, baths: 5, sqft: "2,700" },
-  { id: 4, image: "https://images.olx.com.pk/thumbnails/600529096-400x300.jpeg", title: "F-11 Executive House", address: "F-11, Islamabad", price: "Rs 5.5 lac", oldPrice: "Rs 6.2 lac", beds: 6, baths: 6, sqft: "5,400" },
-  { id: 5, image: "https://images.olx.com.pk/thumbnails/582383949-400x300.jpeg", title: "Range Road Residence", address: "Range Road, Rawalpindi", price: "Rs 1.8 lac", oldPrice: "Rs 2.1 lac", beds: 5, baths: 4, sqft: "2,475" },
-  { id: 6, image: "https://images.olx.com.pk/thumbnails/632060167-400x300.jpeg", title: "PWD Family Portion", address: "PWD Housing Scheme, Islamabad", price: "Rs 1.25 lac", oldPrice: "Rs 1.5 lac", beds: 3, baths: 3, sqft: "1,800" },
-  { id: 7, image: "https://images.olx.com.pk/thumbnails/590998256-400x300.jpeg", title: "Satellite Town Upper Portion", address: "Satellite Town, Rawalpindi", price: "Rs 95,000", oldPrice: "Rs 1.1 lac", beds: 3, baths: 3, sqft: "1,650" },
-  { id: 8, image: "https://images.olx.com.pk/thumbnails/600529096-400x300.jpeg", title: "Bani Gala View House", address: "Bani Gala, Islamabad", price: "Rs 3.6 lac", oldPrice: "Rs 4 lac", beds: 5, baths: 5, sqft: "3,600" },
-  { id: 9, image: "https://images.olx.com.pk/thumbnails/582383949-400x300.jpeg", title: "Chaklala Scheme Home", address: "Chaklala Scheme 3, Rawalpindi", price: "Rs 1.65 lac", oldPrice: "Rs 1.9 lac", beds: 4, baths: 4, sqft: "2,250" },
+  { id: 1, image: "https://images.olx.com.pk/thumbnails/632060167-400x300.jpeg", title: "DHA Phase 5 Villa", address: "DHA Phase 5, Islamabad", price: "Rs 4.2 core", oldPrice: "Rs 4.8 core", beds: 5, baths: 6, sqft: "4,500" },
+  { id: 2, image: "https://media.zameen.com/thumbnails/34778212-800x600.jpeg", title: "G-13 Modern House", address: "G-13, Islamabad", price: "Rs 1 core", oldPrice: "Rs 3.4 core", beds: 4, baths: 4, sqft: "2,250" },
+  { id: 3, image: "https://havenholidayhome.com/public/propertys/2026/Mar/1773221512-69b1368883bb7.webp", title: "Bahria Garden Home", address: "Bahria Town Phase 7, Rawalpindi", price: "Rs 2.4 core", oldPrice: "Rs 2.8 lac", beds: 4, baths: 5, sqft: "2,700" },
+  { id: 4, image: "https://images.olx.com.pk/thumbnails/600529096-400x300.jpeg", title: "F-11 Executive House", address: "F-11, Islamabad", price: "Rs 5.5 core", oldPrice: "Rs 6.2 core", beds: 6, baths: 6, sqft: "5,400" },
+  { id: 5, image: "https://th.bing.com/th/id/R.e4bc72c312ba441861c5a27a12ae3359?rik=SoizNkzWYQwiCw&pid=ImgRaw&r=0", title: "Range Road Residence", address: "Range Road, Rawalpindi", price: "Rs 1.8 core", oldPrice: "Rs 2.1 core", beds: 5, baths: 4, sqft: "2,475" },
+  { id: 6, image: "https://images.olx.com.pk/thumbnails/632060167-400x300.jpeg", title: "PWD Family Portion", address: "PWD Housing Scheme, Islamabad", price: "Rs 1.25 core", oldPrice: "Rs 1.5 core", beds: 3, baths: 3, sqft: "1,800" },
+  { id: 7, image: "https://st.hzcdn.com/simgs/pictures/exteriors/prairie-style-exterior-rhoads-estate-homes-llc-img~61b18c180739ef53_9-6447-1-dd76e08.jpg", title: "Satellite Town Upper Portion", address: "Satellite Town, Rawalpindi", price: "Rs 5 core", oldPrice: "Rs 1.1 core", beds: 3, baths: 3, sqft: "1,650" },
+  { id: 8, image: "https://images.olx.com.pk/thumbnails/600529096-400x300.jpeg", title: "Bani Gala View House", address: "Bani Gala, Islamabad", price: "Rs 3.6 core", oldPrice: "Rs 3 core", beds: 5, baths: 5, sqft: "3,600" },
+  { id: 9, image: "https://tse4.mm.bing.net/th/id/OIP.2VRyjm4KwYPmMJuef8dJMQHaE8?r=0&w=2940&h=1960&rs=1&pid=ImgDetMain&o=7&rm=3", title: "Chaklala Scheme Home", address: "Chaklala Scheme 3, Rawalpindi", price: "Rs 1.65 core", oldPrice: "Rs 1.9 core", beds: 4, baths: 4, sqft: "2,250" },
 ];
 
 const activity = [

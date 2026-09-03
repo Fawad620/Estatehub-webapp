@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const initialForm = {
@@ -18,7 +18,7 @@ export default function RegisterBuyer() {
   const handleChange = (field) => (e) =>
     setForm((prev) => ({ ...prev, [field]: e.target.value }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (Object.values(form).some((v) => !v.trim())) {
       setError("Fill in every field to create your account.");
@@ -33,8 +33,14 @@ export default function RegisterBuyer() {
       return;
     }
     setError("");
-    // Hook this up to your registration API. For now, just route to login.
-    navigate("/login");
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/register", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, role: "buyer" }) });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || "Unable to create account.");
+      navigate("/login", { state: { role: "buyer" } });
+    } catch (requestError) {
+      setError(requestError.message || "Unable to create account. Please try again.");
+    }
   };
 
   return (
