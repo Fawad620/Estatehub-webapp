@@ -105,3 +105,18 @@ code {
     @apply h-11 w-full rounded-md border border-brand-navy/15 bg-white px-3 text-sm text-brand-navy outline-none transition placeholder:text-brand-navy/35 focus:border-brand-blue focus:ring-2 focus:ring-brand-sky/40;
   }
 }
+
+@media (max-width: 640px) {
+  .container-page { padding-left: 1rem; padding-right: 1rem; }
+  .dashboard-nav { max-width: 46vw; gap: 1rem; }
+  .dashboard-nav a { font-size: 0.75rem; }
+  .dashboard-nav::-webkit-scrollbar { display: none; }
+  .dashboard-nav { scrollbar-width: none; }
+  .dashboard-nav + div { gap: 0.5rem; }
+  .dashboard-nav + div > span { display: none; }
+  .dashboard-nav + div button { padding-left: 0.65rem; padding-right: 0.65rem; }
+  h1 { overflow-wrap: anywhere; }
+  .field-input { min-width: 0; }
+  .fixed.bottom-5.right-5 { right: 1rem; bottom: 1rem; }
+  .fixed.bottom-5.right-5 > button { padding-left: 1rem; padding-right: 1rem; }
+}

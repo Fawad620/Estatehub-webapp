@@ -26,7 +26,7 @@ export default function DashboardHeader({ role, name }) {
           <span className="text-lg font-semibold text-brand-navy">EstateHub</span>
         </Link>
 
-        <nav className="hidden items-center gap-6 lg:flex">
+        <nav className="dashboard-nav flex max-w-[52vw] items-center gap-5 overflow-x-auto whitespace-nowrap lg:max-w-none lg:gap-6">
           {navLinks.map((link) => (
               ((!link.buyerOnly || role === "buyer") && <NavLink key={link.label} to={role === "seller" && link.sellerDashboard ? "/seller-dashboard/sell" : link.page ? `/${role}-dashboard/${link.page}` : `/${role}-dashboard`} className="text-sm font-medium text-brand-navy/65 transition hover:text-brand-blue">
               {role === "seller" && link.sellerDashboard ? "Sell through company" : link.label}
