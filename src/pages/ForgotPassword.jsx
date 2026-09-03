@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { apiUrl } from "../utils/api";
 
 const initialForm = { fullName: "", email: "", phone: "", password: "", confirmPassword: "" };
 
@@ -22,7 +23,7 @@ export default function ForgotPassword() {
     }
     setStatus({ error: "", success: "", loading: true });
     try {
-      const response = await fetch("http://localhost:5000/api/auth/reset-password", {
+      const response = await fetch(apiUrl("/api/auth/reset-password"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, role }),

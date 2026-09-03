@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { apiUrl } from "../utils/api";
 
 const initialForm = {
   fullName: "",
@@ -34,7 +35,7 @@ export default function RegisterBuyer() {
     }
     setError("");
     try {
-      const response = await fetch("http://localhost:5000/api/auth/register", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, role: "buyer" }) });
+      const response = await fetch(apiUrl("/api/auth/register"), { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, role: "buyer" }) });
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || "Unable to create account.");
       navigate("/login", { state: { role: "buyer" } });

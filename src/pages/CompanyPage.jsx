@@ -4,6 +4,7 @@ import { ArrowRight, BadgeCheck, Building2, Handshake, ShieldCheck } from "lucid
 import DashboardShell from "../components/DashboardShell";
 import PropertyCard from "../components/PropertyCard";
 import { getSession } from "../utils/auth";
+import { apiUrl } from "../utils/api";
 
 const companyListings = [
   { id: 1, image: "https://images.olx.com.pk/thumbnails/632060167-400x300.jpeg", title: "DHA Phase 5 Villa", address: "DHA Phase 5, Islamabad", price: "Rs 4.2 lac", beds: 5, baths: 6, sqft: "4,500" },
@@ -54,7 +55,7 @@ export default function CompanyPage({ role, page }) {
     event.preventDefault();
     setRequestStatus({ loading: true, message: "", error: "" });
     try {
-      const response = await fetch("http://localhost:5000/api/buyer-requests", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...request, buyerId: session?.id, buyerEmail: session?.email }) });
+      const response = await fetch(apiUrl("/api/buyer-requests"), { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...request, buyerId: session?.id, buyerEmail: session?.email }) });
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || "Unable to send request.");
       setRequest({ buyerName: session?.fullName || "", buyerEmail: session?.email || "", buyerPhone: session?.phone || "", preferredType: "any", preferredLocation: "", budget: "", message: "" });

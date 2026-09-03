@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { CheckCircle2, Home, MapPinned, Building2, Pencil, Trash2 } from "lucide-react";
 import DashboardShell from "../components/DashboardShell";
 import { getSession } from "../utils/auth";
+import { apiUrl } from "../utils/api";
 
 const initialForm = { sellerName: "", sellerEmail: "", sellerPhone: "", title: "", location: "", category: "house", price: "", bedrooms: "", bathrooms: "", size: "", description: "", images: [] };
 const categories = [
@@ -33,9 +34,9 @@ export default function SellerDashboard() {
       reader.readAsDataURL(file);
     }))).then((images) => setForm((current) => ({ ...current, images }))).catch(() => setError("Unable to read one of the selected images."));
   };
-  const loadProperties = () => fetch(`http://localhost:5000/api/properties/seller?sellerId=${encodeURIComponent(session?.id || "")}&sellerEmail=${encodeURIComponent(session?.email || "")}`).then((response) => response.json()).then((data) => { if (data.success) setProperties(data.properties); }).catch(() => setError("Unable to load your properties."));
+  const loadProperties = () => fetch(apiUrl(`/api/properties/seller?sellerId=${encodeURIComponent(session?.id || "")}&sellerEmail=${encodeURIComponent(session?.email || "")}`)).then((response) => response.json()).then((data) => { if (data.success) setProperties(data.properties); }).catch(() => setError("Unable to load your properties."));
   useEffect(() => {
-    fetch(`http://localhost:5000/api/properties/seller?sellerId=${encodeURIComponent(session?.id || "")}&sellerEmail=${encodeURIComponent(session?.email || "")}`)
+    fetch(apiUrl(`/api/properties/seller?sellerId=${encodeURIComponent(session?.id || "")}&sellerEmail=${encodeURIComponent(session?.email || "")}`))
       .then((response) => response.json())
       .then((data) => { if (data.success) setProperties(data.properties); })
       .catch(() => setError("Unable to load your properties."));
@@ -45,7 +46,7 @@ export default function SellerDashboard() {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch(editingId ? `http://localhost:5000/api/properties/${editingId}` : "http://localhost:5000/api/properties", {
+      const response = await fetch(editingId ? apiUrl(`/api/properties/${editingId}`) : apiUrl("/api/properties"), {
         method: editingId ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, sellerId: session?.id, sellerEmail: form.sellerEmail }),
@@ -64,7 +65,7 @@ export default function SellerDashboard() {
   };
   const editProperty = (property) => setForm({ sellerName: property.sellerName, sellerEmail: property.sellerEmail, sellerPhone: property.sellerPhone, title: property.title, location: property.location, category: property.category, price: property.price, bedrooms: property.bedrooms ?? "", bathrooms: property.bathrooms ?? "", size: property.size, description: property.description || "", images: property.images || [] });
   const startEdit = (property) => { setEditingId(property._id); editProperty(property); setSubmitted(false); setError(""); window.scrollTo({ top: 0, behavior: "smooth" }); };
-  const deleteProperty = async (id) => { if (!window.confirm("Delete this property listing?")) return; const response = await fetch(`http://localhost:5000/api/properties/${id}?sellerId=${encodeURIComponent(session?.id || "")}&sellerEmail=${encodeURIComponent(session?.email || "")}`, { method: "DELETE" }); if (response.ok) setProperties((current) => current.filter((property) => property._id !== id)); else setError("Unable to delete property."); };
+  const deleteProperty = async (id) => { if (!window.confirm("Delete this property listing?")) return; const response = await fetch(apiUrl(`/api/properties/${id}?sellerId=${encodeURIComponent(session?.id || "")}&sellerEmail=${encodeURIComponent(session?.email || "")}`), { method: "DELETE" }); if (response.ok) setProperties((current) => current.filter((property) => property._id !== id)); else setError("Unable to delete property."); };
 
   return (
     <DashboardShell role="seller">

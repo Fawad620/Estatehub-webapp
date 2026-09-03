@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
 import DashboardShell from "../components/DashboardShell";
 import PropertyCard from "../components/PropertyCard";
+import { apiUrl } from "../utils/api";
 
 const tabs = ["all", "house", "plot", "office"];
 
@@ -10,7 +11,7 @@ export default function BuyerDashboard() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("all");
   useEffect(() => {
-    fetch("http://localhost:5000/api/properties/approved")
+    fetch(apiUrl("/api/properties/approved"))
       .then((response) => response.json())
       .then((data) => {
         if (!data.success) return;

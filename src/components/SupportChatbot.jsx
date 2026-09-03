@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { MessageCircle, Send, X } from "lucide-react";
 import { getSession } from "../utils/auth";
+import { apiUrl } from "../utils/api";
 
 export default function SupportChatbot({ role }) {
   const session = getSession();
@@ -11,7 +12,7 @@ export default function SupportChatbot({ role }) {
 
   const loadMessages = () => {
     if (!session?.email) return;
-    fetch(`http://localhost:5000/api/support?email=${encodeURIComponent(session.email)}`)
+    fetch(apiUrl(`/api/support?email=${encodeURIComponent(session.email)}`))
       .then((response) => response.json())
       .then((data) => { if (data.success) setMessages(data.messages); })
       .catch(() => setError("Unable to load chat."));
@@ -19,7 +20,7 @@ export default function SupportChatbot({ role }) {
 
   useEffect(() => {
     if (!session?.email) return;
-    fetch(`http://localhost:5000/api/support?email=${encodeURIComponent(session.email)}`)
+    fetch(apiUrl(`/api/support?email=${encodeURIComponent(session.email)}`))
       .then((response) => response.json())
       .then((data) => { if (data.success) setMessages(data.messages); })
       .catch(() => setError("Unable to load chat."));
@@ -28,7 +29,7 @@ export default function SupportChatbot({ role }) {
   const submit = async (event) => {
     event.preventDefault();
     if (!question.trim()) return;
-    const response = await fetch("http://localhost:5000/api/support", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ userId: session?.id, userName: session?.fullName, userEmail: session?.email, userRole: role, question }) });
+    const response = await fetch(apiUrl("/api/support"), { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ userId: session?.id, userName: session?.fullName, userEmail: session?.email, userRole: role, question }) });
     const data = await response.json();
     if (!response.ok) { setError(data.message || "Unable to send question."); return; }
     setQuestion(""); setError(""); loadMessages();
