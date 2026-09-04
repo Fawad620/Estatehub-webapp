@@ -1,6 +1,4 @@
-import React from "react";
-
-export default function PropertyCard({ property }) {
+export default function PropertyCard({ property, onViewDetails }) {
   const { image, title, address, price, oldPrice, beds, baths, sqft } = property;
 
   return (
@@ -41,6 +39,11 @@ export default function PropertyCard({ property }) {
           </span>
           <span>{sqft} sqft</span>
         </div>
+        {onViewDetails && (
+          <button type="button" onClick={() => onViewDetails(property)} className="btn-primary mt-5 w-full py-2.5">
+            View property details
+          </button>
+        )}
       </div>
     </div>
   );
