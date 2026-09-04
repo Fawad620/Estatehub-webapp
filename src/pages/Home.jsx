@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { X } from "lucide-react";
 import PropertyCard from "../components/PropertyCard";
 
 const properties = [
@@ -38,6 +39,18 @@ const perks = [
 export default function Home() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ location: "", type: "", status: "", price: "" });
+  const [showLoanAnnouncement, setShowLoanAnnouncement] = useState(true);
+
+  useEffect(() => {
+    if (!showLoanAnnouncement) return undefined;
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") setShowLoanAnnouncement(false);
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [showLoanAnnouncement]);
 
   const handleChange = (field) => (e) =>
     setForm((prev) => ({ ...prev, [field]: e.target.value }));
@@ -49,6 +62,34 @@ export default function Home() {
 
   return (
     <div>
+      {showLoanAnnouncement && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-brand-navy/70 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label="PM Housing Loan Scheme 2026 announcement"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setShowLoanAnnouncement(false);
+          }}
+        >
+          <div className="relative w-full max-w-3xl overflow-hidden rounded-xl bg-white shadow-2xl">
+            <button
+              type="button"
+              onClick={() => setShowLoanAnnouncement(false)}
+              className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-brand-navy/85 text-white transition hover:bg-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-sky focus:ring-offset-2"
+              aria-label="Close announcement"
+            >
+              <X size={21} />
+            </button>
+            <img
+              src="https://schemes.org.pk/wp-content/uploads/2026/05/PM-Home-Loan-Scheme-2026.webp"
+              alt="PM Housing Loan Scheme 2026: apply online now for up to Rs 10 million"
+              className="max-h-[85vh] w-full object-contain"
+            />
+          </div>
+        </div>
+      )}
+
       {/* Hero */}
       <section className="relative overflow-hidden bg-brand-navy">
         <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-brand-blue/30 blur-3xl" />
