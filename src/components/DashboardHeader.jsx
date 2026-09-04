@@ -20,13 +20,13 @@ export default function DashboardHeader({ role, name }) {
 
   return (
     <header className="border-b border-brand-navy/10 bg-white">
-      <div className="container-page flex min-h-20 items-center justify-between gap-5 py-3">
+      <div className="container-page flex min-h-20 flex-wrap items-center justify-between gap-x-5 gap-y-3 py-3">
         <Link to={`/${role}-dashboard`} className="flex shrink-0 items-center gap-2">
           <img src="/estatehub-logo.svg" alt="EstateHub logo" className="h-10 w-10 object-contain" />
           <span className="text-lg font-semibold text-brand-navy">EstateHub</span>
         </Link>
 
-        <nav className="dashboard-nav flex max-w-[52vw] items-center gap-5 overflow-x-auto whitespace-nowrap lg:max-w-none lg:gap-6">
+        <nav className="dashboard-nav order-3 flex basis-full items-center gap-5 overflow-x-auto whitespace-nowrap pb-1 lg:order-none lg:max-w-none lg:basis-auto lg:pb-0 lg:gap-6">
           {navLinks.map((link) => (
               ((!link.buyerOnly || role === "buyer") && <NavLink key={link.label} to={role === "seller" && link.sellerDashboard ? "/seller-dashboard/sell" : link.page ? `/${role}-dashboard/${link.page}` : `/${role}-dashboard`} className="text-sm font-medium text-brand-navy/65 transition hover:text-brand-blue">
               {role === "seller" && link.sellerDashboard ? "Sell through company" : link.label}

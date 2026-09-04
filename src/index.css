@@ -108,8 +108,8 @@ code {
 
 @media (max-width: 640px) {
   .container-page { padding-left: 1rem; padding-right: 1rem; }
-  .dashboard-nav { max-width: 46vw; gap: 1rem; }
-  .dashboard-nav a { font-size: 0.75rem; }
+  .dashboard-nav { max-width: none; gap: 1rem; }
+  .dashboard-nav a { flex-shrink: 0; font-size: 0.75rem; }
   .dashboard-nav::-webkit-scrollbar { display: none; }
   .dashboard-nav { scrollbar-width: none; }
   .dashboard-nav + div { gap: 0.5rem; }
